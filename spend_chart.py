@@ -2,21 +2,17 @@ from math import floor
 
 
 def create_spend_chart(categories: list):
-    sum_of_cats = [x.sum_category_withdraws() for x in categories]
-    total_sum_of_cats = sum(sum_of_cats)
-    percentage = [round(x.sum_category_withdraws() / total_sum_of_cats * 10, 2) for x in categories]
+    sum_of_cats = sum([x.sum_category_withdraws() for x in categories])
+    percentage = [round(x.sum_category_withdraws() / sum_of_cats * 10, 2) for x in categories]
 
     names = [x.name for x in categories]
-    name_length_list = [len(x.name) for x in categories]
-    max_length = max(name_length_list)
+    max_length = max([len(x.name) for x in categories])
 
     o = 'o'
     space = ' '
     list_of_splited_names = []
     for name in names:
-        single_name_list = []
-        for n in name:
-            single_name_list.append(n)
+        single_name_list = [n for n in name]
         name_len_diff = max_length - len(name)
         single_name_list.extend(space for _ in range(name_len_diff))
         list_of_splited_names.append(single_name_list)
@@ -36,27 +32,25 @@ def create_spend_chart(categories: list):
         single_list.extend(['---'])
         list_of_splited_percentages.append(single_list)
 
+    title = f"Percentage spent by category\n"
     top = list(zip(*list_of_splited_percentages))
     bottom = list(zip(*list_of_splited_names))
 
-    str1 = f"Percentage spent by category\n100| " \
-        f"{'  '.join(top[0])}  \n 90| " \
-        f"{'  '.join(top[1])}  \n 80| " \
-        f"{'  '.join(top[2])}  \n 70| " \
-        f"{'  '.join(top[3])}  \n 60| " \
-        f"{'  '.join(top[4])}  \n 50| " \
-        f"{'  '.join(top[5])}  \n 40| " \
-        f"{'  '.join(top[6])}  \n 30| " \
-        f"{'  '.join(top[7])}  \n 20| " \
-        f"{'  '.join(top[8])}  \n 10| " \
-        f"{'  '.join(top[9])}  \n  0| " \
-        f"{'  '.join(top[10])}  \n    -" \
-        f"{''.join(top[11])}\n     "
+    str1 = f"100| {'  '.join(top[0])}  \n" \
+           f" 90| {'  '.join(top[1])}  \n" \
+           f" 80| {'  '.join(top[2])}  \n" \
+           f" 70| {'  '.join(top[3])}  \n" \
+           f" 60| {'  '.join(top[4])}  \n" \
+           f" 50| {'  '.join(top[5])}  \n" \
+           f" 40| {'  '.join(top[6])}  \n" \
+           f" 30| {'  '.join(top[7])}  \n" \
+           f" 20| {'  '.join(top[8])}  \n" \
+           f" 10| {'  '.join(top[9])}  \n" \
+           f"  0| {'  '.join(top[10])}  \n" \
+           f"    -{''.join(top[11])}\n     "
 
-    str2 = []
-    for n in bottom:
-        str2.append(f"{'  '.join(n)}  \n     ")
+    str2 = [f"{'  '.join(n)}  \n     " for n in bottom]
 
     joined_str2 = ''.join(str2)
-    display_chart = str1 + joined_str2[:-6:]
+    display_chart = title + str1 + joined_str2[:-6:]
     return display_chart
