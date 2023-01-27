@@ -13,11 +13,11 @@ class Category:
             self.ledger.append(deposit)
             return deposit
         if amount < 0:
-            raise Exception("Only positive values accepted. For withdraw use 'withdraw' method.")
+            raise ValueError("Only positive values accepted. For withdraw use 'withdraw' method.")
 
     def withdraw(self, amount, description: str = ''):
         if amount < 0:
-            amount = amount * -1
+            raise ValueError("Only positive values accepted.")
         if self.check_funds(amount):
             withdraw = {'amount': -abs(amount), 'description': description}
             self.ledger.append(withdraw)
@@ -36,7 +36,7 @@ class Category:
 
     def transfer(self, amount, obj):
         if amount < 0:
-            amount = amount * -1
+            raise ValueError("Only positive values accepted.")
         if self.check_funds(amount):
             description = f'Transfer to {obj.name}'
             self.withdraw(amount, description)
