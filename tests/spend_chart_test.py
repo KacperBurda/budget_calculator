@@ -4,7 +4,6 @@ from spend_chart import create_spend_chart
 
 
 class UnitTests(unittest.TestCase):
-    maxDiff = None
 
     def setUp(self):
         self.food = budget.Category("Food")
@@ -14,7 +13,7 @@ class UnitTests(unittest.TestCase):
         self.auto = budget.Category("Auto")
         self.clothing = budget.Category("Clothing")
 
-    def test_create_spend_chart(self):
+    def test_create_spend_chart_first(self):
         self.food.deposit(900, "deposit")
         self.entertainment.deposit(900, "deposit")
         self.business.deposit(900, "deposit")
@@ -50,7 +49,7 @@ class UnitTests(unittest.TestCase):
                    "           t  "
         self.assertEqual(actual, expected, 'Expected different chart representation. Check that all spacing is exact.')
 
-    def test_create_spend_chart2(self):
+    def test_create_spend_chart_second(self):
         self.food.deposit(900, "deposit")
         self.toys.deposit(900)
         self.clothing.deposit(900, "deposit")
